@@ -27,8 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
   }
   
   protected function _initHead()
-  {
-    
+  {    
     $this->bootstrap('view');
     $view = $this->getResource('view');
     $view->doctype('XHTML1_STRICT');
@@ -39,19 +38,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     $view->HeadScript()->appendFile('/js/jquery.corner.js')->setIndent(8);
     $view->HeadScript()->appendFile('/js/jquery.shadow.pack.js')->setIndent(8);
     $view->HeadScript()->appendFile('/js/jquery.sparkline.min.js')->setIndent(8);
-    //$view->HeadScript()->appendFile('/js/boot/vz.lib.js')->setIndent(8);
-    //$view->HeadScript()->appendFile('/js/boot/frontpage.js')->setIndent(8);
     $view->HeadScript()->appendFile('/js/jquery.getimagedata.min.js');
     
     ZendX_JQuery::enableView($view);
 
-    
-    
-    /**
-     * Global session tunneling
-     *
-     *
-     */
     //Zend_Session::rememberMe(60);
     //Zend_Session::rememberMe(864000);
     Zend_Session::start();
@@ -100,13 +90,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'controller' => 'index',
                 'action' => 'add'
             ));
-      
-      $static1 = new Zend_Controller_Router_Route_Static(
-            '/1/downloads.txt',
-            array(
-                'controller' => 'bart',
-                'action'    => 'ivvr'
-            ));      
 
       $regex = new Zend_Controller_Router_Route_Regex(
                 'admin/(\d+)',
@@ -137,8 +120,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
       // Add all of them
       $router->addRoute('dynamic', $dynamic);      
       $router->addRoute('static' , $static);
-      // IVVR 
-      $router->addRoute('static1' , $static1);      
       $router->addRoute('regex'  , $regex);
       $router->addRoute('blogArchive', $route);
   }

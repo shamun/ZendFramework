@@ -1,5 +1,5 @@
-Front-end:
-----------
+Advise for Front-end:
+----------------------
 
   $ cd /var/www/html
   $ git clone https://github.com/shamun/ZendFramework.git
@@ -17,4 +17,5 @@ Instruction for layout fitting:
                                                  {{see example files called layout.phtml}}
 
       application/views/<new directory>/body of the html 
+
 
