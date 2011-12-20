@@ -1,0 +1,51 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headScript(); ?>
+    <?php echo $this->headLink()->prependStylesheet('/css/global.css'); ?>
+</head>
+
+<body>
+
+    <!-- default front page -->
+
+
+    <div id="pagetop">Vooyz
+        <?php echo $this->render('header.phtml'); ?>
+    </div>
+
+
+
+    <div id="page" >
+        <div class="content">
+          <table class="layout_one">
+            <tr>
+              <td>
+                <?php echo $this->layout()->content; ?>
+              </td>
+
+
+            </tr>
+
+          </table>
+
+
+        </div>
+
+    </div>
+    
+
+
+
+
+
+    <div id="pagebottom">
+     <?php echo $this->render('footer.phtml'); ?>
+    </div>
+
+</body>
+</html>

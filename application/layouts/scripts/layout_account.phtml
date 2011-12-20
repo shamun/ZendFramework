@@ -1,0 +1,40 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <?=$this->headTitle(); ?>
+    <?=$this->headScript(); ?>
+    <?php
+
+      if ($this->jQuery()->isEnabled()) {
+        $this->jQuery()->setLocalPath('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
+                       ->enable()
+                       ->setUiLocalPath('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js')
+                       ->uiEnable()
+                       ->addStylesheet('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/ui-lightness/jquery-ui.css');
+        echo $this->jQuery();
+      }
+    ?>
+
+    <?= $this->headLink()->prependStylesheet('/css/global.css'); ?>
+</head>
+<body>
+    <!-- default front page -->
+    <div id="pagetop">
+        <?=$this->render('header_account.phtml'); ?>
+    </div>
+
+    <div id="page" >
+        <div class="content">
+           <?= $this->layout()->content; ?>
+        </div>
+    </div>
+
+    <div id="pagebottom">
+     <?=$this->render('footer.phtml'); ?>
+    </div>
+
+</body>
+</html>
