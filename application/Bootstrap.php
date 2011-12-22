@@ -65,63 +65,152 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     $loader->addResourceType('module','modules','Module');
   }
 
-  protected function _initRoutes()
+  protected  function _initRoutes()
   {
-      $front = Zend_Controller_Front::getInstance();
-      $router = $front->getRouter();
+         
+    $front = Zend_Controller_Front::getInstance();
+    $router = $front->getRouter();
+//    $dynamic1 = new Zend_Controller_Router_Route(
+//          '/:variable1',
+//          array(
+//                'controller' => 'router',
+//              ),
+//              array('variable1' => '^[a-zA-Z0-9_]*$')
+//          );
+//    $router->addRoute('dynamic1', $dynamic1); 
 
-      $dynamic = new Zend_Controller_Router_Route(
-            '/a/:variable1',
-            array(
+    $dynamic2 = new Zend_Controller_Router_Route(
+          '/',
+          array(
                 'controller' => 'index',
-                'action'     => 'index'),
-                array('variable1' => '^[a-zA-Z0-9_]*$')
-            );
+                'action'     => 'index'
+              )
+          );
+    $router->addRoute('dynamic2', $dynamic2);
 
-      $static = new Zend_Controller_Router_Route_Static(
-            'nice-looking-url-hello-world-seo',
-            array(
-                'controller' => 'index',
-                'action' => 'add'
-            ));
-      
-      $static1 = new Zend_Controller_Router_Route_Static(
-            '/1/downloads.txt',
-            array(
-                'controller' => 'bart',
-                'action'    => 'ivvr'
-            ));      
-
-      $regex = new Zend_Controller_Router_Route_Regex(
-                'admin/(\d+)',
-                array(
-                    'controller' => 'index',
-                    'action' => 'index'
-                ),
-                array(
-                  1 => 'request'
-                )
-            );
-
-      $route = new Zend_Controller_Router_Route_Regex(
-              'blog/a/(\d+)-(.+)\.html',
+    /* Hidden tools */
+    $static1 = new Zend_Controller_Router_Route_Static(
+              'rss.xml',
               array(
-                  'controller' => 'index',
-                  'action'     => 'index'
+                'controller'  => 'index',
+                'action'      => 'rss'
+          ));
+    $router->addRoute('static1' , $static1);
+
+    $static2 = new Zend_Controller_Router_Route_Static(
+        'sitemap.xml',
+        array(
+            'controller' => 'index',
+            'action' => 'sitemap'
+        ));
+    $router->addRoute('static2' , $static2);
+
+    /* Static - Profile */
+    $sta1 = new Zend_Controller_Router_Route_Static(
+          '/profile',
+          array(
+                'controller' => 'profile',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('sta1', $sta1); 
+
+    $fixed1 = new Zend_Controller_Router_Route(
+          '/profile/:variable1',
+          array(
+                'controller' => 'profile'
               ),
-              array(
-                  1 => 'id',
-                  2 => 'description'
-              ),
-              'blog/a/%d-%s.html'
+              array('variable1' => '^[a-zA-Z0-9_]*$')
+          );
+    $router->addRoute('fixed1', $fixed1);        
+
+    /* Static - Login */
+    $s2 = new Zend_Controller_Router_Route_Static(
+          '/login',
+          array(
+                'controller' => 'login',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s2', $s2); 
+
+    /* Static - Inbox */
+    $s3 = new Zend_Controller_Router_Route_Static(
+          '/inbox',
+          array(
+                'controller' => 'inbox',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s3', $s3); 
+
+    /* Static - Contacts */
+    $s4 = new Zend_Controller_Router_Route_Static(
+          '/contacts',
+          array(
+                'controller' => 'contacts',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s4', $s4); 
+
+    /* Static - Profile */
+    $s5 = new Zend_Controller_Router_Route_Static(
+          '/profile',
+          array(
+                'controller' => 'profile',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s5', $s5); 
+
+    /* Static - About */
+    $s6 = new Zend_Controller_Router_Route_Static(
+          '/about',
+          array(
+                'controller' => 'about',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s6', $s6); 
+
+    /* Static - feedback */
+    $s7 = new Zend_Controller_Router_Route_Static(
+          '/feedback',
+          array(
+                'controller' => 'feedback',
+                'action'=>'index'
+              )
+          );
+    $router->addRoute('s7', $s7);        
+
+    /**
+      * Subdomain
+      * 
+      * m.domain.com where :m is a subdomain name
+      * we use this subdomain in indexcontroller
+      * from this subdomain we manage the routing plan
+      * for specific subdomain lists
+      *
+      */
+      /* Subdomain part 1: carry variables */
+      $path_route = new Zend_Controller_Router_Route(
+        ':controller/:action/*',
+        array(
+          'controller' => 'index',
+          'action'     => 'index',
+        )
       );
 
-      // Add all of them
-      $router->addRoute('dynamic', $dynamic);      
-      $router->addRoute('static' , $static);
-      $router->addRoute('static1' , $static1);      
-      $router->addRoute('regex'  , $regex);
-      $router->addRoute('blogArchive', $route);
+      /* Subdomain part 2: How do you get the subdomain as variable to track later ?*/
+      $dynamic_subdomain = new Zend_Controller_Router_Route_Hostname(
+              ':subdomain.xxx.com',
+              NULL,
+              array(
+                  'subdomain' => '([a-zA-Z]+)'
+              )
+          );
+      $router->addRoute('subdomain_route', $dynamic_subdomain->chain($path_route));      
   }
-
+  
 }
