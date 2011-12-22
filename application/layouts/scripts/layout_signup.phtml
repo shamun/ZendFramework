@@ -4,48 +4,31 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <?php echo $this->headTitle(); ?>
-    <?php echo $this->headScript(); ?>
-    <?php echo $this->headLink()->prependStylesheet('/css/global.css'); ?>
+    <?=$this->headTitle(); ?>
+    <?=$this->headScript(); ?>
+    <?=$this->headLink()->prependStylesheet('/css/global.css'); ?>
 </head>
 
 <body>
-
     <!-- default front page -->
-
-
     <div id="pagetop">Vooyz
-        <?php echo $this->render('header.phtml'); ?>
+        <?=$this->render('header.phtml'); ?>
     </div>
-
-
 
     <div id="page" >
         <div class="content">
           <table class="layout_one">
             <tr>
               <td>
-                <?php echo $this->layout()->content; ?>
+                <?=$this->layout()->content; ?>
               </td>
-
-
             </tr>
-
           </table>
-
-
         </div>
-
     </div>
-    
-
-
-
-
 
     <div id="pagebottom">
-     <?php echo $this->render('footer.phtml'); ?>
+     <?=$this->render('footer.phtml'); ?>
     </div>
-
 </body>
 </html>
